@@ -1,5 +1,6 @@
 package com.cartao.view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -17,15 +19,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 import com.cartao.controller.propostaControl;
 import com.cartao.model.Proposta;
 import com.cartao.model.PropostaTableModel;
-import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.ImageIcon;
 
 public class ConsultaPropostaAceitaUI extends JInternalFrame {
 	/**
@@ -197,17 +197,12 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		);
 		
 		jtListaProposta = new JTable();
-		jtListaProposta.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, "", null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"PROPOSTA", "CLIENTE", "DATA ACEITE", "DESC. D\u00C9BITO", "DESC. CR\u00C9DITO", "TAXA DEBITO", "TAXA CREDITO"
-			}
-		));
+		jtListaProposta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		PropostaTableModel modelProposta = new PropostaTableModel(
+					new propostaControl().listarTodos()
+				
+				);
+		jtListaProposta.setModel(modelProposta);
 		jspProposta.setViewportView(jtListaProposta);
 		jpConsultaProposta.setLayout(gl_jpConsultaProposta);
 		getContentPane().setLayout(groupLayout);

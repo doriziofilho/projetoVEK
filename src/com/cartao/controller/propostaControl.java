@@ -15,5 +15,9 @@ public class propostaControl {
 	public List<Proposta> pesquisarPropostaPorData(LocalDate dataInicial, LocalDate dataFinal){
 		return PropostaDao.obterInstancia().pesquisarPropostaPordata(dataInicial, dataFinal);
 	}
+	
+	public List<Proposta> listarTodos(){
+		return PropostaDao.obterInstancia().listarTodos();
+	}
 
 }
