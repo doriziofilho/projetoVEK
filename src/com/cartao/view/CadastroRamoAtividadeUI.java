@@ -53,6 +53,7 @@ public class CadastroRamoAtividadeUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroRamoAtividadeUI() {
+		setClosable(true);
 		setTitle("Cadastro Ramo de Atividade");
 		setToolTipText("Ramo de Atividade");
 		setBounds(100, 100, 400, 300);

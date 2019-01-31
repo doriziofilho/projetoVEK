@@ -53,7 +53,7 @@ public class PropostaDao {
 		try {
 			String sql  = "SELECT  * FROM proposta p INNER JOIN cliente c ON c.idCliente = p.idCliente INNER JOIN concorrente cc"
 					+ " ON cc.idConcorrente = c.idConcorrente WHERE dataSimulacao "
-					+ "BETWEEN  ?  AND  ?  AND situacao = '1'";
+					+ "BETWEEN  ?  AND  ?  AND situacao = '1' ORDER BY p.idSimulacao";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setDate(1, Date.valueOf(dataInicial));
 			pstmt.setDate(2, Date.valueOf(dataFinal));

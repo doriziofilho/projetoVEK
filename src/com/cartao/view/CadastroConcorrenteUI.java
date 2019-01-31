@@ -54,7 +54,8 @@ public class CadastroConcorrenteUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroConcorrenteUI() {
-		setTitle("Cadastro de Concorrentes");
+		setClosable(true);
+		setTitle("Cadastro de Concorrente");
 		setBounds(100, 100, 368, 267);
 		
 		JPanel panel = new JPanel();
@@ -128,9 +129,9 @@ public class CadastroConcorrenteUI extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(22)
 					.addComponent(btnSalvar)
-					.addGap(18)
+					.addGap(22)
 					.addComponent(btnCancelar)
-					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
 					.addComponent(btnFechar)
 					.addGap(29))
 		);
@@ -140,11 +141,11 @@ public class CadastroConcorrenteUI extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnSalvar)
 						.addComponent(btnCancelar)
 						.addComponent(btnFechar))
-					.addContainerGap(25, Short.MAX_VALUE))
+					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		
 		JLabel lblNome = new JLabel("Nome:");

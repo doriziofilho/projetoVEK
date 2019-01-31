@@ -80,7 +80,7 @@ public class CadastroPropostaUI extends JInternalFrame {
 	 */
 	public CadastroPropostaUI() {
 		setClosable(true);
-		setTitle("Simulacao de Proposta ao Cliente");
+		setTitle("Simula\u00E7\u00E3o de Proposta ao Cliente");
 		setBounds(100, 100, 833, 414);
 		
 		JPanel jpDadosSimulacao = new JPanel();
@@ -160,6 +160,7 @@ public class CadastroPropostaUI extends JInternalFrame {
 				JLabel jlbRAatividadeEscolhido = new JLabel("");
 				
 		JButton btnSeleciona = new JButton("Seleciona");
+		btnSeleciona.setIcon(new ImageIcon(CadastroPropostaUI.class.getResource("/img/plus.png")));
 		btnSeleciona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -206,6 +207,7 @@ public class CadastroPropostaUI extends JInternalFrame {
 		jpNegativo.setBorder(new TitledBorder(null, "Negocia\u00E7\u00E3o:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSimular = new JButton("Simular");
+		btnSimular.setIcon(new ImageIcon(CadastroPropostaUI.class.getResource("/img/refresh.png")));
 		
 		btnSimular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -271,6 +273,7 @@ public class CadastroPropostaUI extends JInternalFrame {
 		JLabel label_1 = new JLabel("%");
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon(CadastroPropostaUI.class.getResource("/img/cancel.png")));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -293,6 +296,7 @@ public class CadastroPropostaUI extends JInternalFrame {
 		});
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setIcon(new ImageIcon(CadastroPropostaUI.class.getResource("/img/close.png")));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

@@ -23,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
 import com.cartao.controller.propostaControl;
 import com.cartao.model.Proposta;
 import com.cartao.model.PropostaTableModel;
+import javax.swing.UIManager;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class ConsultaPropostaAceitaUI extends JInternalFrame {
 	/**
@@ -55,10 +58,12 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ConsultaPropostaAceitaUI() {
+		setTitle("Consulta de Propostas");
+		setClosable(true);
 		setBounds(100, 100, 818, 425);
 		
 		JPanel jpConsultaProposta = new JPanel();
-		jpConsultaProposta.setBorder(new TitledBorder(null, "Consulta Proposta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		jpConsultaProposta.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Consultar Proposta:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -90,6 +95,7 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		jtfDataFinal.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setIcon(new ImageIcon(ConsultaPropostaAceitaUI.class.getResource("/img/magnifier.png")));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -147,8 +153,15 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnGerarCsv = new JButton("Gerar CSV");
+		btnGerarCsv.setIcon(new ImageIcon(ConsultaPropostaAceitaUI.class.getResource("/img/save.png")));
 		
 		JButton btnFechar = new JButton("Sair");
+		btnFechar.setIcon(new ImageIcon(ConsultaPropostaAceitaUI.class.getResource("/img/close.png")));
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		GroupLayout gl_jpConsultaProposta = new GroupLayout(jpConsultaProposta);
 		gl_jpConsultaProposta.setHorizontalGroup(
 			gl_jpConsultaProposta.createParallelGroup(Alignment.LEADING)

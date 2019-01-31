@@ -23,6 +23,7 @@ import com.cartao.controller.ramoAtividadeControl;
 import com.cartao.dao.RamoAtividadeDao;
 import com.cartao.model.RamoAtividade;
 import com.cartao.model.RamoAtividadeTableModel;
+import javax.swing.ImageIcon;
 
 
 public class ConsultaRamoAtividadeUI extends JInternalFrame {
@@ -67,6 +68,7 @@ public class ConsultaRamoAtividadeUI extends JInternalFrame {
 		jtfPesquisa.setColumns(10);
 		
 		JButton btnPesquisarAtualizar = new JButton("Pesquisar / Atualizar");
+		btnPesquisarAtualizar.setIcon(new ImageIcon(ConsultaRamoAtividadeUI.class.getResource("/img/refresh.png")));
 		btnPesquisarAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<RamoAtividade> filtro = new ramoAtividadeControl().pesquisarRAporNome(jtfPesquisa.getText());
@@ -99,6 +101,7 @@ public class ConsultaRamoAtividadeUI extends JInternalFrame {
 		JScrollPane jspTabelaRamoAtividade = new JScrollPane();
 		
 		JButton btnNovo = new JButton("Novo Ramo Atividade");
+		btnNovo.setIcon(new ImageIcon(ConsultaRamoAtividadeUI.class.getResource("/img/plus.png")));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroRamoAtividadeUI cadRa = new CadastroRamoAtividadeUI();
@@ -108,6 +111,7 @@ public class ConsultaRamoAtividadeUI extends JInternalFrame {
 		});
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setIcon(new ImageIcon(ConsultaRamoAtividadeUI.class.getResource("/img/cross.png")));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -129,6 +133,7 @@ public class ConsultaRamoAtividadeUI extends JInternalFrame {
 		});
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setIcon(new ImageIcon(ConsultaRamoAtividadeUI.class.getResource("/img/close.png")));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -136,6 +141,7 @@ public class ConsultaRamoAtividadeUI extends JInternalFrame {
 		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon(ConsultaRamoAtividadeUI.class.getResource("/img/edit.png")));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					try {

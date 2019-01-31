@@ -35,6 +35,7 @@ import com.cartao.model.RamoAtividadeTableModel;
 
 import javax.swing.UIManager;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class ConsultaClienteUI extends JInternalFrame {
 	/**
@@ -76,6 +77,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 		jtfPesquisa.setColumns(10);
 		
 		JButton btnPesquisarAtualizar = new JButton("Pesquisar / Atualizar");
+		btnPesquisarAtualizar.setIcon(new ImageIcon(ConsultaClienteUI.class.getResource("/img/magnifier.png")));
 		btnPesquisarAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Cliente> filtro = new clienteControl().pesquisarClientePorNome(jtfPesquisa.getText());
@@ -108,6 +110,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnNovo = new JButton("Novo Cliente");
+		btnNovo.setIcon(new ImageIcon(ConsultaClienteUI.class.getResource("/img/plus.png")));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroClienteUI cadCliente = new CadastroClienteUI();
@@ -117,6 +120,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 		});
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setIcon(new ImageIcon(ConsultaClienteUI.class.getResource("/img/cross.png")));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -138,6 +142,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 		});
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setIcon(new ImageIcon(ConsultaClienteUI.class.getResource("/img/close.png")));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -145,6 +150,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon(ConsultaClienteUI.class.getResource("/img/edit.png")));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -177,11 +183,11 @@ public class ConsultaClienteUI extends JInternalFrame {
 							.addContainerGap(19, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
-							.addGap(55)
-							.addComponent(btnEditar)
-							.addGap(97)
-							.addComponent(btnExcluir)
-							.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+							.addGap(60)
+							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+							.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+							.addGap(112)
 							.addComponent(btnFechar)
 							.addGap(54))))
 		);
@@ -197,8 +203,8 @@ public class ConsultaClienteUI extends JInternalFrame {
 						.addComponent(btnFechar)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnNovo)
-							.addComponent(btnEditar))
-						.addComponent(btnExcluir))
+							.addComponent(btnExcluir)
+							.addComponent(btnEditar)))
 					.addGap(53))
 		);
 		
