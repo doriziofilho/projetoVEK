@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.omg.Messaging.SyncScopeHelper;
+
 import com.cartao.model.Cliente;
 import com.cartao.model.Concorrente;
 import com.cartao.model.RamoAtividade;
@@ -52,8 +54,8 @@ public class PropostaDao {
 	public List<Proposta> pesquisarPropostaPordata(LocalDate dataInicial, LocalDate dataFinal){
 		try {
 			String sql  = "SELECT  * FROM proposta p INNER JOIN cliente c ON c.idCliente = p.idCliente INNER JOIN concorrente cc"
-					+ " ON cc.idConcorrente = c.idConcorrente WHERE dataSimulacao "
-					+ "BETWEEN  ?  AND  ?  AND situacao = '1' ORDER BY p.idSimulacao";
+					+ " ON cc.idConcorrente = c.idConcorrente INNER JOIN ramoatividade ra on c.idRamoAtividade = ra.idRamoAtividade WHERE dataSimulacao"
+					+ " BETWEEN  ?  AND  ?  AND situacao = '1' ORDER BY p.idSimulacao";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setDate(1, Date.valueOf(dataInicial));
 			pstmt.setDate(2, Date.valueOf(dataFinal));
@@ -66,7 +68,13 @@ public class PropostaDao {
 					cc.setNome(rs.getString("nomeConcorrente"));
 					cc.setTaxaCredito(rs.getDouble("taxaCredito"));
 					cc.setTaxaDebito(rs.getDouble("taxaDebito"));
-				
+						
+				RamoAtividade r = new RamoAtividade();
+					r.setId(rs.getInt("idRamoAtividade"));
+					r.setNome(rs.getString("nomeAtividade"));
+					r.setTaxaMinimaCredito(rs.getDouble("taxaMinimaCredito"));
+					r.setTaxaMinimaDebito(rs.getDouble("taxaMinimaDebito"));
+					
 				Cliente c= new Cliente();
 					c.setId(rs.getInt("idCliente"));
 					c.setNome(rs.getString("nomeCliente"));
@@ -74,7 +82,8 @@ public class PropostaDao {
 					c.setTelefone(rs.getString("telefone"));
 					c.setEmail(rs.getString("email"));
 					c.setConcorrente(cc);
-				
+					c.setRamoAtividade(r);
+					
 				Proposta proposta = new Proposta();
 					proposta.setId(rs.getInt("idSimulacao"));
 					proposta.setDataSimulacao(rs.getDate("dataSimulacao").toLocalDate());

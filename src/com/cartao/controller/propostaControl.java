@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.cartao.dao.PropostaDao;
+import com.cartao.io.PropostaWriter;
 import com.cartao.model.Proposta;
 
 public class propostaControl {
@@ -20,4 +21,8 @@ public class propostaControl {
 		return PropostaDao.obterInstancia().listarTodos();
 	}
 
+	public void exportarCSV(String path, LocalDate dataInicio, LocalDate dataFinal) {
+		PropostaWriter proposta = new PropostaWriter();
+		proposta.escrever(path, dataInicio, dataFinal);	
+	}
 }

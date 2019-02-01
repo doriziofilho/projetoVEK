@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,8 +14,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,10 +26,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.cartao.controller.propostaControl;
+import com.cartao.io.FileTypeFilter;
+import com.cartao.io.PropostaWriter;
 import com.cartao.model.Proposta;
 import com.cartao.model.PropostaTableModel;
+import javax.swing.SwingConstants;
 
 public class ConsultaPropostaAceitaUI extends JInternalFrame {
 	/**
@@ -36,7 +44,7 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 	private JTextField jtfDataFinal;
 	private JTable jtListaProposta;
 	private propostaControl propostaControl = new propostaControl();
-	
+	private Path arquivo = null; 
 	
 	/**
 	 * Launch the application.
@@ -88,8 +96,10 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		jtfDataIncial.setColumns(10);
 		
 		JLabel label = new JLabel("Data Inicial: ");
+		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JLabel lblDataFinal = new JLabel("Data Final :");
+		lblDataFinal.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		jtfDataFinal = new JTextField();
 		jtfDataFinal.setColumns(10);
@@ -99,10 +109,10 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate dataInical = LocalDate.parse(jtfDataIncial.getText(),dtf);
+				LocalDate dataInicial = LocalDate.parse(jtfDataIncial.getText(),dtf);
 				LocalDate dataFinal = LocalDate.parse(jtfDataFinal.getText(),dtf);
 				
-			List<Proposta> filtro = new propostaControl().pesquisarPropostaPorData(dataInical, dataFinal);
+			List<Proposta> filtro = new propostaControl().pesquisarPropostaPorData(dataInicial, dataFinal);
 				PropostaTableModel modelProspota = new PropostaTableModel(filtro);
 				jtListaProposta.setModel(modelProspota);
 				
@@ -114,19 +124,17 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(21)
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(jtfDataIncial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblDataFinal, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-					.addComponent(btnPesquisar)
-					.addGap(24))
+						.addComponent(lblDataFinal, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+						.addComponent(label, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+					.addGap(10)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(jtfDataIncial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+					.addGap(25))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -135,10 +143,10 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(19)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(jtfDataIncial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(3)
-									.addComponent(label))
-								.addComponent(jtfDataIncial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(label)))
 							.addGap(11)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
@@ -146,13 +154,33 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 									.addComponent(lblDataFinal))
 								.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(33)
+							.addGap(32)
 							.addComponent(btnPesquisar)))
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
 		JButton btnGerarCsv = new JButton("Gerar CSV");
+		btnGerarCsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dataInicial = LocalDate.parse(jtfDataIncial.getText(),dtf);
+				LocalDate dataFinal = LocalDate.parse(jtfDataFinal.getText(),dtf);
+				
+				JFileChooser chooser = new JFileChooser(new File("."));
+				chooser.setDialogTitle("Salvar Arquivo");
+				chooser.setFileFilter(new FileTypeFilter(".csv", "CSV file"));
+				
+				chooser.showSaveDialog(null);
+				File fi = chooser.getSelectedFile();
+
+				propostaControl.exportarCSV(fi.getPath(), dataInicial, dataFinal);
+						
+					 JOptionPane.showMessageDialog(null, "Arquivo CSV gerado com sucesso!");
+				
+				
+			}
+		});
 		btnGerarCsv.setIcon(new ImageIcon(ConsultaPropostaAceitaUI.class.getResource("/img/save.png")));
 		
 		JButton btnFechar = new JButton("Sair");
@@ -166,17 +194,15 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		gl_jpConsultaProposta.setHorizontalGroup(
 			gl_jpConsultaProposta.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_jpConsultaProposta.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_jpConsultaProposta.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_jpConsultaProposta.createSequentialGroup()
-							.addGap(10)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
-							.addGap(153)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
+							.addGap(113)
 							.addGroup(gl_jpConsultaProposta.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnFechar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnGerarCsv, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
-						.addGroup(gl_jpConsultaProposta.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(jspProposta, GroupLayout.PREFERRED_SIZE, 735, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(jspProposta, GroupLayout.PREFERRED_SIZE, 735, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		gl_jpConsultaProposta.setVerticalGroup(
@@ -184,13 +210,13 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 				.addGroup(gl_jpConsultaProposta.createSequentialGroup()
 					.addGroup(gl_jpConsultaProposta.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_jpConsultaProposta.createSequentialGroup()
-							.addGap(19)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_jpConsultaProposta.createSequentialGroup()
 							.addGap(30)
 							.addComponent(btnGerarCsv)
 							.addGap(18)
-							.addComponent(btnFechar)))
+							.addComponent(btnFechar))
+						.addGroup(gl_jpConsultaProposta.createSequentialGroup()
+							.addGap(19)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(27)
 					.addComponent(jspProposta, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
 					.addGap(19))
@@ -200,7 +226,6 @@ public class ConsultaPropostaAceitaUI extends JInternalFrame {
 		jtListaProposta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		PropostaTableModel modelProposta = new PropostaTableModel(
 					new propostaControl().listarTodos()
-				
 				);
 		jtListaProposta.setModel(modelProposta);
 		jspProposta.setViewportView(jtListaProposta);

@@ -1,0 +1,6 @@
+PROPOSTA Nº;CLIENTE;CPF;TELEFONE;EMAIL;RAMO ATIVIDADE;TAXA MIN CRÉDITO;TAXA MIN DÉBITO;CONCORRENTE;TAXA CRÉDITO;TAX DÉBITO;DESC. CRÉDITO;DESC. DÉBITO;TAXA CRÉDITO ACEITA;TAXA DÉBITO ACEITA;DATA ACEITE
+1;Dorizio;70301689920;3223 5977;doriziofilho@terra.com.br;Atividade A;6.0 %;7.0 %;Concorrente A;12.0 %;13.0 %;10.0 %;10.0 %;11.61 %;11.49 %;2000-01-01
+2;Sissi;88921131949;323232;gmail.com;Atividade C;12.0 %;8.0 %;Concorrente B;13.0 %;14.0 %;5.0 %;10.0 %;12.4 %;12.26 %;2001-01-01
+5;Dorizio;70301689920;3223 5977;doriziofilho@terra.com.br;Atividade A;6.0 %;7.0 %;Concorrente A;12.0 %;13.0 %;3.0 %;8.0 %;11.62 %;11.49 %;2018-12-10
+6;Breno;857458;325895;breno@breno.com.br;Atividade C;12.0 %;8.0 %;Concorrente C;15.0 %;16.0 %;4.0 %;3.0 %;13.95 %;13.77 %;2011-01-01
+4 <--------- Total de propostas do perido selecionado.
